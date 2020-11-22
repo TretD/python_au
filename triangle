@@ -1,1 +1,36 @@
+```python
 
+import math
+
+def get_coordinates():
+    string = ""
+    file = open('triangle.txt', 'r')
+    f = 0
+    line = file.readline()
+    print(line)
+    while line != "":
+        string_line = line
+        flag = 0
+        try:
+            line = list(map(int, line.split()))
+            flag = 1
+        except ValueError:
+            flag = 0
+        if flag:
+            x1, y1, x2, y2, x3, y3 = map(int, line)
+            a = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+            b = math.sqrt((x3 - x1) ** 2 + (y3 - y1) ** 2)
+            c = math.sqrt((x2 - x3) ** 2 + (y2 - y3) ** 2)
+            p = (a + b + c) / 2
+            res = math.sqrt(p * (p - a) * (p - b) * (p - c))
+            if a == c or a == b or c == b and res != 0:
+                if res > f:
+                    f = res
+                    string = string_line
+        line = file.readline()
+    file.close()
+    return string
+output_file=open('outtriangle.txt', 'w')
+output_file.write(get_coordinates())
+output_file.close()
+```
